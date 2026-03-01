@@ -1,0 +1,52 @@
+{
+    "name": "example_rag_eval_job",
+    "experiment_id": "a1b2c3d4-e5f6-7a8b-9c0d-1e2f3a4b5c6d",
+    "version": "1.0.0",
+    "description": "Эвалюация нового RAG пайплайна с использованием Cohere Rerank",
+    "versions": {
+        "code": "commit_hash_123456",
+        "data": "golden_dataset_v1_hash",
+        "model": "gpt-4o-2024-05-13",
+        "prompt": "prompt_template_v1.2_hash"
+    },
+    "sgr_kernel": {
+        "sandbox_profile": "docker-sandboxed",
+        "acl_policy": "read_only_staging"
+    },
+    "docker_image": "sgr-llm-base:v2.1",
+    "entrypoint": "python evaluate_rag.py",
+    "resources": {
+        "cpus": 4,
+        "memory_mb": 8192,
+        "gpu_required": false
+    },
+    "capabilities_acl": [
+        "READ_VECTOR_DB_STAGING",
+        "EXECUTE_HTTP_OPENAI_API",
+        "WRITE_MLFLOW_TRACKING"
+    ],
+    "approval_gates": {
+        "require_human_approval": true,
+        "max_cost_usd_limit": 10.00,
+        "cost_escalation_policy": "STRICT_HALT"
+    },
+    "artifacts": {
+        "inputs": [
+            {
+                "name": "golden_dataset",
+                "path": "s3://eval-data-bucket/golden_v1.jsonl"
+            }
+        ],
+        "outputs": [
+            {
+                "name": "evaluation_metrics",
+                "path": "/app/results/metrics.json"
+            }
+        ]
+    },
+    "environment": {
+        "MLFLOW_EXPERIMENT_NAME": "rag_reranking_experiment",
+        "LOG_LEVEL": "INFO",
+        "SGR_WAL_ENABLED": "true"
+    }
+}

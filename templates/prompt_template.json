@@ -1,0 +1,25 @@
+{
+  "version": "1.0.0",
+  "model_target": "gpt-4o",
+  "cost_limit_per_token_usd": 0.000005,
+  "system_message": {
+    "role": "system",
+    "content": "Ты полезный AI-ассистент компании. Отвечай только по теме, основываясь на переданном контексте. Если ответ неизвестен — честно скажи об этом. 1. Никаких PII данных. 2. Будь краток и вежлив."
+  },
+  "few_shot_examples": [
+    {
+      "input": "Как запросить отпуск?",
+      "output": "Для запроса отпуска перейдите в портал HR и заполните форму T-14."
+    }
+  ],
+  "rag_context_placeholder": "{{retrieved_chunks}}",
+  "user_prompt_template": "Контекст:\n{{retrieved_chunks}}\n\nВопрос:\n{{user_question}}",
+  "safety_checks": [
+    "PII_filtering",
+    "toxic_filtering"
+  ],
+  "sgr_kernel_capability_required": [
+    "READ_VECTOR_DB",
+    "EXECUTE_MATH_TOOL"
+  ]
+}
