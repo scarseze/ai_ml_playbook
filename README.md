@@ -1,10 +1,10 @@
-# AI/ML Playbook
+# 📘 AI/ML Playbook
 
 Welcome to the AI/ML Playbook repository. This project serves as the declarative source of truth for ML experiments, data pipelines, and evaluation rules within the organization.
 
 The Playbook is designed to be executed autonomously by the **SGR Kernel** orchestrator, enabling Task-Driven Development for AI systems (LLM/RAG/Agents).
 
-## Documentation Index
+## 📚 Documentation Index
 
 | Document | Purpose |
 | :--- | :--- |
@@ -22,13 +22,13 @@ The Playbook is designed to be executed autonomously by the **SGR Kernel** orche
 
 # Russian Section / Русская Секция 🇷🇺
 
-# AI/ML Playbook
+# 📘 AI/ML Playbook
 
 Добро пожаловать в репозиторий AI/ML Playbook. Этот проект служит декларативным источником истины для ML-экспериментов, конвейеров данных и правил оценки внутри организации.
 
 Плейбук (Playbook) спроектирован для автономного выполнения оркестратором **SGR Kernel**, что позволяет использовать подход Task-Driven Development для AI систем (LLM/RAG/Agents).
 
-## Индекс Документации
+## 📚 Индекс Документации
 
 | Документ | Назначение |
 | :--- | :--- |
