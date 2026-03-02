@@ -1,0 +1,49 @@
+name: LLM Prompt Evaluation
+
+on:
+  pull_request:
+    paths:
+      - 'prompts/**'
+      - 'evals/**'
+
+jobs:
+  promptfoo-eval:
+    runs-name: Run Promptfoo Evaluations
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: read
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install promptfoo
+        run: npm install -g promptfoo
+
+      - name: Run prompt evaluations
+        id: eval
+        working-directory: evals
+        # Мы используем OpenAI как эталонный Judge LLM
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          # Запускаем тесты и шарим результат для PR-коммента
+          promptfoo eval --share
+
+      - name: Comment PR with Evaluation Results
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '✅ **Prompt Evaluation Completed**\n\nThe LLM evaluator has successfully analyzed the modified prompts against the Golden Dataset.\n\nReview the [Matrix View Report](https://app.promptfoo.dev/) (link printed in Action logs) to ensure no regressions in Security Guardian or Routing logic.'
+            });

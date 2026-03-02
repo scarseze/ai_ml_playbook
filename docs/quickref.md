@@ -26,7 +26,12 @@ python main.py --experiment /path/to/your/manifest.json
 - Заметил OOM (Out of Memory)? -> Уменьши `batch_size`.
 - Ядро упало или ты нажал Ctrl+C? -> Не бойся, **WAL** всё сохранил, запусти ту же команду еще раз, процесс продолжится с того же места.
 
-### 5. Оценка (Evaluation)
+### 5. Оценка Промптов (Prompt Evaluation)
+- Перед пушем изменений прогони локальные тесты производительности в папке `evals/`:
+  ```bash
+  npx promptfoo eval
+  npx promptfoo view
+  ```
 - Дождись завершения генерации метрик.
 - Заполни [experiment_report.md](../templates/experiment_report.md) и прикрепи туда **Run ID** (Track ID) испытания.
 - Передай отчет в роль **LLM Evaluator** и **Product Owner** на ревью. Выросли ли метрики качества? Не превышен ли бюджет? 
@@ -71,7 +76,12 @@ python main.py --experiment /path/to/your/manifest.json
 - OOM (Out of Memory)? → Reduce `batch_size`.
 - Kernel crashed or Ctrl+C? → No worries, **WAL** saved everything. Re-run the same command to resume from the same point.
 
-### 5. Evaluation
+### 5. Prompt Evaluation
+- Before pushing your changes, run local prompt evaluations in the `evals/` folder:
+  ```bash
+  npx promptfoo eval
+  npx promptfoo view
+  ```
 - Wait for metrics generation to complete.
 - Fill in [experiment_report.md](../templates/experiment_report.md) and attach the **Run ID** (Track ID).
 - Submit report to **LLM Evaluator** and **Product Owner** for review.

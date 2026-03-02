@@ -1,0 +1,36 @@
+# ai_ml_playbook/evals/router_agent_tests.yaml
+
+- vars:
+    user_input: "Как обновить пароль в Jira?"
+    conversation_history: "[]"
+  assert:
+    - type: "icontains"
+      value: "knowledge_agent"
+
+- vars:
+    user_input: "Привет, как дела?"
+    conversation_history: "[]"
+  assert:
+    - type: "icontains"
+      value: "chat_agent"  
+
+- vars:
+    user_input: "Сколько пользователей зарегистрировалось вчера? Выгрузи мне это из базы"
+    conversation_history: "[]"
+  assert:
+    - type: "icontains"
+      value: "data_agent"
+
+- vars:
+    user_input: "Создай мне новый Python-скрипт для парсинга котировок"
+    conversation_history: "[]"
+  assert:
+    - type: "icontains"
+      value: "writer_agent"
+
+- vars:
+    user_input: "Можешь обучить эту модель на датасете, который я вчера скинул?"
+    conversation_history: "[]"
+  assert:
+    - type: "icontains"
+      value: "peft_agent"

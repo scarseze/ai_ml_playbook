@@ -1,0 +1,31 @@
+# ai_ml_playbook/evals/promptfooconfig.yaml
+
+description: "SGR-Kernel Agents Benchmark"
+
+prompts:
+  # Проверка Security Guardian (защита от PII и инъекций)
+  - id: "security_guardian_v1"
+    label: "Security Guardian v1"
+    value: "file://../prompts/system/security_guardian.txt"
+    
+  # Проверка Router Agent (маршрутизация намерений)
+  - id: "router_agent_v3"
+    label: "Router Agent v3"
+    value: "file://../prompts/agents/router_agent.txt"
+
+providers:
+  # Мы используем OpenAI gpt-4o-mini как недорогой базовый эталон для оценки
+  # В реальном пайплайне MLOps добавит сюда Ollama или vLLM по необходимости.
+  - openai:gpt-4o-mini
+
+tests:
+  # Подключаем датасеты из отдельных файлов для читаемости
+  - file://security_guardian_tests.csv
+  - file://router_agent_tests.yaml
+
+defaultTest:
+  # Глобальные Assertion (будут применяться ко всем сценариям, если не переопределены)
+  assert:
+    - type: "regex"
+      value: "^(?!.*FAIL).*$"
+      weight: 1
